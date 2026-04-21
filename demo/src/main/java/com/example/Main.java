@@ -1,42 +1,29 @@
 package com.example;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        int rows = 3, cols = 3;
+        int rows = 4, cols = 4;
         int[][] table = new int[rows][cols];
+        int[] flat = new int[rows * cols];
         Random rand = new Random();
 
-        // 1. Initialize with random values
-        System.out.println("Original Table:");
+        // 1. Fill with random values and flatten
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 table[i][j] = rand.nextInt(100);
-                System.out.print(table[i][j] + "\t");
+                flat[i * cols + j] = table[i][j];
             }
-            System.out.println();
         }
 
-        // 2. Optimized 2D Bubble Sort (Nested in main)
-        int n = rows * cols;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                // Convert 1D loop index 'j' into 2D (row, col)
-                int r1 = j / cols;
-                int c1 = j % cols;
-                
-                // Get coordinates for the next element (j + 1)
-                int r2 = (j + 1) / cols;
-                int c2 = (j + 1) % cols;
+        // 2. Sort the flattened array
+        Arrays.sort(flat);
 
-                // Compare and Swap
-                if (table[r1][c1] > table[r2][c2]) {
-                    int temp = table[r1][c1];
-                    table[r1][c1] = table[r2][c2];
-                    table[r2][c2] = temp;
-                }
-            }
+        // 3. Put sorted values back into the 2D table
+        for (int i = 0; i < flat.length; i++) {
+            table[i / cols][i % cols] = flat[i];
         }
 
         // 3. Print the Sorted Table
