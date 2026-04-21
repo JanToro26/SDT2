@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        int rows = 3, cols = 3;
+        int rows = 2, cols = 2;
         int[][] table = new int[rows][cols];
         Random rand = new Random();
 
